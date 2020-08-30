@@ -2,8 +2,8 @@
 #include <thread>
 #include <fstream>
 #include <string>
-//#include <glad/glad.h>
-#include <GL/glew.h>
+//#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "shader.h"
 
@@ -20,8 +20,10 @@ int main() {
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
     if (!window) {
@@ -31,29 +33,23 @@ int main() {
     }
     glfwSetKeyCallback(window, key_callback);
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
     glfwMakeContextCurrent(window);
-//Now we have a valid context as current, let's allow glew to do its job
-    glewExperimental = GL_TRUE; //Ensure it get all pointers
-    if ( GLEW_OK != glewInit() )
-    {
-        //glewInit failed, something is seriously wrong.
-        return false; //or any handling here
-    }
 
-    glfwSwapInterval(1);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
     fprintf(stderr, "OpenGL %s\n", glGetString(GL_VERSION));
+
+    glViewport(0, 0, 800, 600);
+    glfwSwapInterval(1);
 
     GLuint VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
     std::cout << "vao: " <<  VertexArrayID << std::endl;
 
-    glViewport(0, 0, 800, 600);
 
 //    glClearColor(0.15f, 0.6f, 0.4f, 1.0f);
 
@@ -73,7 +69,7 @@ int main() {
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//        glUseProgram(program);
+        glUseProgram(program);
 
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);

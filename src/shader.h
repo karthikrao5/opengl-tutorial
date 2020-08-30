@@ -6,7 +6,9 @@
 #define OPENGL_TUTORIAL_SHADER_H
 
 
-#include <GL/glew.h>
+//#include <GL/glew.h>
+
+#include <glad/glad.h>
 
 GLuint loadShader(const char * vertex_file_path, const char * fragment_file_path);
 

@@ -17,13 +17,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/glfw)
 include_directories(${CMAKE_SOURCE_DIR}/lib/glfw/include)
 
 #glad
-#add_library(glad ${GLAD_DIR}/src/glad.c)
-#target_include_directories(glad PRIVATE ${GLAD_DIR}/include)
-#target_include_directories(${PROJECT_NAME} PRIVATE ${GLAD_DIR}/include)
+add_library(glad ${GLAD_DIR}/src/glad.c)
+target_include_directories(glad PRIVATE ${GLAD_DIR}/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${GLAD_DIR}/include)
 
-##glew
-add_subdirectory(${GLEW_DIR}/build/cmake)
-target_include_directories(glew PRIVATE ${GLEW_DIR}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${GLEW_DIR}/include)
+#glew
+#add_subdirectory(${GLEW_DIR}/build/cmake)
+#target_include_directories(glew PRIVATE ${GLEW_DIR}/include)
+#target_include_directories(${PROJECT_NAME} PRIVATE ${GLEW_DIR}/include)
 
-target_link_libraries(opengl_tutorial glfw glew)
+target_link_libraries(opengl_tutorial glfw glad)
