@@ -7,7 +7,7 @@ set(GLEW_DIR ${CMAKE_SOURCE_DIR}/lib/glew)
 #set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/lib/glm/cmake)
 #set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/lib/glm/cmake)
 
-add_executable(opengl_tutorial src/main.cpp src/shader.h src/shader.cpp src/Triangle.cpp)
+add_executable(opengl_tutorial src/main.cpp src/common/shader.h src/common/shader.cpp src/common/controls.cpp src/common/controls.cpp src/common/controls.h)
 
 # glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
